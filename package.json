@@ -31,6 +31,8 @@
   "devDependencies": {
     "@battis/eslint-config": "^2.0.7",
     "@battis/prettier-config": "^1.7.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@commitlint/config-pnpm-scopes": "^21.0.1",
     "commit-and-tag-version": "^12.6.1",
     "lerna": "^9.0.3",
     "monorepo-package-paths": "^0.4.2",
