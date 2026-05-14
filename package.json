@@ -1,6 +1,6 @@
 {
   "name": "@groton/blackbaud-athletics-rss",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Generate RSS feeds for Blackbaud athetics team schedules",
   "homepage": "https://github.com/groton-school/blackbaud-athletics-rss#readme",
   "repository": {

@@ -3,6 +3,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.5](https://github.com/groton-school/blackbaud-athletics-rss/compare/v0.4.4...v0.4.5) (2026-05-14)
+
+
+### Bug Fixes
+
+* do not cache API credentials in memory ([e17d6bd](https://github.com/groton-school/blackbaud-athletics-rss/commit/e17d6bd916d3165fdbd06303762fcd5d5537b881))
+* require version of `pnpm` compatible with `nodejs22` buildpack ([2f8774f](https://github.com/groton-school/blackbaud-athletics-rss/commit/2f8774f9989df89d20d29f0de8dbc512a0a3d62c))
+
 ## [0.4.4](https://github.com/groton-school/blackbaud-athletics-rss/compare/v0.4.3...v0.4.4) (2025-12-10)
 
 
