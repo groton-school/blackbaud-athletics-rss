@@ -19,7 +19,6 @@ export class SKY extends Blockable {
   private static instance?: SKY = undefined;
 
   private config: Promise<Client.Configuration>;
-  private credentials: Promise<Credentials>;
   private code_verifier?: string;
   private state?: string;
   private tokens?: TimeStampedTokens = undefined;
@@ -27,9 +26,8 @@ export class SKY extends Blockable {
 
   private constructor() {
     super();
-    this.credentials = this.getCredentials();
     this.config = new Promise((resolve) => {
-      this.credentials.then((credentials) => {
+      this.getCredentials().then((credentials) => {
         resolve(
           new Client.Configuration(
             {
@@ -75,7 +73,7 @@ export class SKY extends Blockable {
     this.state = Client.randomState();
 
     const parameters: Record<string, string> = {
-      redirect_uri: (await this.credentials).redirect_uri,
+      redirect_uri: (await this.getCredentials()).redirect_uri,
       code_challenge,
       code_challenge_method: 'S256',
       state: this.state
@@ -86,7 +84,7 @@ export class SKY extends Blockable {
 
   public async deauthorize() {
     await this.secretManager.set(SKY.SECRET_NAME, {
-      ...(await this.credentials),
+      ...(await this.getCredentials()),
       tokens: undefined
     });
   }
@@ -95,7 +93,7 @@ export class SKY extends Blockable {
     this.saveTokens(
       await Client.authorizationCodeGrant(
         await this.config,
-        new URL(req.url, (await this.credentials).redirect_uri),
+        new URL(req.url, (await this.getCredentials()).redirect_uri),
         {
           pkceCodeVerifier: this.code_verifier,
           expectedState: this.state
@@ -109,12 +107,12 @@ export class SKY extends Blockable {
     tokens: Client.TokenEndpointResponse
   ): Promise<TimeStampedTokens> {
     const timestampedTokens = {
-      refresh_token: (await this.credentials).tokens?.refresh_token,
+      refresh_token: (await this.getCredentials()).tokens?.refresh_token,
       ...tokens,
       timestamp: Date.now()
     };
     await this.secretManager.set(SKY.SECRET_NAME, {
-      ...(await this.credentials),
+      ...(await this.getCredentials()),
       tokens: timestampedTokens
     });
     return timestampedTokens;
@@ -122,7 +120,7 @@ export class SKY extends Blockable {
 
   private async getToken() {
     if (this.tokens === undefined) {
-      this.tokens = (await this.credentials).tokens;
+      this.tokens = (await this.getCredentials()).tokens;
     }
     if (this.tokens) {
       if (
@@ -146,7 +144,7 @@ export class SKY extends Blockable {
               console.error('Token expired and no refresh token available');
               this.tokens = undefined;
               await this.secretManager.set(SKY.SECRET_NAME, {
-                ...(await this.credentials),
+                ...(await this.getCredentials()),
                 tokens: undefined
               });
             }
@@ -173,7 +171,7 @@ export class SKY extends Blockable {
     }
     headers = {
       ...headers,
-      'Bb-Api-Subscription-Key': (await this.credentials).access_key,
+      'Bb-Api-Subscription-Key': (await this.getCredentials()).access_key,
       Authorization: `Bearer ${tokens.access_token}`
     };
     const url = new URL(endpoint, 'https://api.sky.blackbaud.com');
