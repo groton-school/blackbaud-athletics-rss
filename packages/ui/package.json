@@ -1,11 +1,11 @@
 {
   "name": "@groton/carousel-athletics.ui",
-  "version": "0.3.1",
+  "version": "0.0.0-workspace",
   "description": "Display athletics schedule information for Carousel",
-  "homepage": "https://github.com/groton-school/carousel-athletics/tree/main/packages/ui#readme",
+  "homepage": "https://github.com/groton-school/blackbaud-athletics-rss/tree/main/packages/ui#readme",
   "repository": {
     "type": "github",
-    "url": "https://github.com/groton-school/carousel-athletics.git",
+    "url": "https://github.com/groton-school/blackbaud-athletics-rss.git",
     "directory": "packages/ui"
   },
   "license": "GPL-3.0",
