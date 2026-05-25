@@ -97,7 +97,8 @@ export async function run() {
         'allow-unauthenticated': true,
         max: 1
       },
-      ...config
+      ...config,
+      retainRevisions: 2
     });
     if (config.force) {
       const blackbaud = await BlackbaudApp.wizard({
