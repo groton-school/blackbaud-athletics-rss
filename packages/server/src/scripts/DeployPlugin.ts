@@ -1,6 +1,6 @@
 import gcloud from '@battis/partly-gcloudy';
 import { Colors } from '@qui-cli/colors';
-import { Env } from '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
 import * as Plugin from '@qui-cli/plugin';
 import * as BlackbaudApp from './BlackbaudApp.js';
@@ -106,7 +106,6 @@ export async function run() {
       });
       await gcloud.secrets.set({ name: 'BLACKBAUD', value: blackbaud });
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_) {
     Log.error(Colors.error(`Deploy failed.`));
     process.exit(1);
